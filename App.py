@@ -61,16 +61,14 @@ class Entry_Page(Frame):
         date_tick_button = ttk.Button(self, text ="Date Tick Graph",
         command = lambda : controller.show_frame(Date_tick_Page))
      
-        # putting the button in its place by
-        # using grid
+        # putting the button in its place by using place
         date_tick_button.place(relx = 0.5, rely = 0.15, anchor = CENTER)
   
         ## button to show frame 2 with text layout2
         heatmap_button = ttk.Button(self, text ="Heatmap Graph",
         command = lambda : controller.show_frame(Heatmap_Page))
      
-        # putting the button in its place by
-        # using grid
+        # putting the button in its place by using place
         heatmap_button.place(relx = 0.5, rely = 0.25, anchor = CENTER) 
 
         #making a button for BarGraph_Page
@@ -92,7 +90,7 @@ class Date_tick_Page(Frame):
         Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Date Tick Graph")
         label.place(relx = 0.5, rely = 0.05, anchor = CENTER)
-  
+
         # button to show frame 2 with text
         # layout2
         home_button = ttk.Button(self, text ="Home",
@@ -103,8 +101,11 @@ class Date_tick_Page(Frame):
 
         home_button.place(x=5,y=10)
 
+        open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
+        open_file_button.place(relx = 0.6, rely = 0.1)
+
         plot_button = ttk.Button(self, command = lambda : plot_date_tick(self), text="Plot Graph")
-        plot_button.place(relx=0.5, rely= 0.15, anchor=CENTER)
+        plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
         # country_selection_label=Label(self,text="Please select a country to draw a graph")
         # country_selection_label.grid(row=2, column=1, padx=20, pady=20)
 
@@ -147,8 +148,11 @@ class Heatmap_Page(Frame):
         # using grid
         home_page.place(x=5,y=10)
 
+        open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
+        open_file_button.place(relx = 0.6, rely = 0.1)
+
         plot_button = ttk.Button(self, command = lambda : plot_heatmap(self), text="Plot Graph")
-        plot_button.place(relx=0.5, rely= 0.15, anchor=CENTER)
+        plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
 
         # country_selection_label=Label(self,text="Please select a country to draw a graph")
         # country_selection_label.place(relx = 0.5, rely = 0.4, anchor = CENTER)
@@ -186,7 +190,13 @@ class BarGraph_Page(Frame):
         home_page = ttk.Button(self, text ="Home",
                             command = lambda : controller.show_frame(Entry_Page))
         
-        home_page.grid(row = 0, column = 0, padx= 5, pady = 10)
+        home_page.place(x = 5, y = 10)
+
+        open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
+        open_file_button.place(relx = 0.6, rely = 0.1)
+
+        plot_button = ttk.Button(self, command = lambda : plot_bar_graph(self), text="Plot Graph")
+        plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
 
 class StackPlot_Page(Frame):
     def __init__(self, parent, controller):
@@ -198,7 +208,13 @@ class StackPlot_Page(Frame):
         home_page = ttk.Button(self, text ="Home",
                             command = lambda : controller.show_frame(Entry_Page))
         
-        home_page.grid(row = 0, column = 0, padx= 5, pady = 10)
+        home_page.place(x = 5, y = 10)
+
+        open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
+        open_file_button.place(relx = 0.6, rely = 0.1)
+
+        plot_button = ttk.Button(self, command = lambda : plot_stack_plot(self), text="Plot Graph")
+        plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
 
 
 app = tkinterApp()

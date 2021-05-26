@@ -1,12 +1,18 @@
 from tkinter import *
+import tkinter
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.dates as mdates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg,NavigationToolbar2Tk
 
+dataset_in_csv = pd.core.frame.DataFrame()
+
+def open_csv_file():
+    globals()['dataset_in_csv'] = pd.read_csv(tkinter.filedialog.askopenfile(mode = 'r', filetypes = [('CSV Datasets','*.csv')]))
+
 def plot_date_tick(parentClass):
-    dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
+    #dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
     list_of_variables_in_dataset = list()
     for col in dataset_in_csv.columns:
         col_as_str = str(col)
@@ -75,7 +81,7 @@ def plot_date_tick(parentClass):
     #toolbar = NavigationToolbar2Tk(canvas, parentClass)
     #toolbar.update()
 
-    canvas._tkcanvas.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+    canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
 
 def plot_heatmap(parentClass):
     dataset_in_csv = pd.read_csv(r'owid-co2-data.csv')
@@ -147,4 +153,4 @@ def plot_heatmap(parentClass):
     #toolbar = NavigationToolbar2Tk(canvas, parentClass)
     #toolbar.update()
 
-    canvas._tkcanvas.place(relx = 0.5, rely = 0.5, anchor = CENTER)
+    canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
