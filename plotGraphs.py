@@ -77,3 +77,33 @@ def plot_date_tick(parentClass):
 
     canvas._tkcanvas.place(relx = 0.5, rely = 0.5, anchor = CENTER)
 
+def plot_heatmap(parentClass):
+    dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
+    list_of_variables_in_dataset = list()
+    for col in dataset_in_csv.columns:
+        col_as_str = str(col)
+        list_of_words_in_col = col_as_str.split('_')
+        list_of_variables_in_dataset.append(" ".join(list_of_words_in_col).title())
+    
+    primary_key = dataset_in_csv.iso_code
+    list_of_latest_entries = list()
+    #To store the first index of a new tuple in the dataset
+    first_entry = dict()
+    #To store the last index of a new tuple in the dataset
+    last_entry = dict()
+    # list_of_countries=list()
+    # count=0
+    first_entry[str(dataset_in_csv.location[0])]=0
+    list_of_latest_entries.append(0)
+    for i in range(len(primary_key)-1):
+        if (primary_key[i+1] != primary_key[i]):
+            # count+=1
+            first_entry[str(dataset_in_csv.location[i+1])]=i+1
+            last_entry[str(dataset_in_csv.location[i])]=i
+            #print(str(i)+'\t'+str(count)+'\t'+dataset_in_csv.location[i])
+            # list_of_latest_entries.append(i)
+            # list_of_countries.append(str(dataset_in_csv.location[i]))
+    last_entry[str(dataset_in_csv.location[len(primary_key)-1])]=int(len(primary_key)-1)
+    y_keys = ['Russia','India','Spain','France','Japan','Kuwait','United Arab Emirates','Sweden','Turkey','United States','United Kingdom']
+    for key in y_keys:
+        values
