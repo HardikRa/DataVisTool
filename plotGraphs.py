@@ -11,13 +11,22 @@ dataset_in_csv = pd.core.frame.DataFrame()
 def open_csv_file():
     globals()['dataset_in_csv'] = pd.read_csv(tkinter.filedialog.askopenfile(mode = 'r', filetypes = [('CSV Datasets','*.csv')]))
 
-def plot_date_tick(parentClass, pk, subset_of_data, parameter_on_y):
-    #dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
+def list_of_var():
     list_of_variables_in_dataset = list()
     for col in dataset_in_csv.columns:
         col_as_str = str(col)
         list_of_words_in_col = col_as_str.split('_')
         list_of_variables_in_dataset.append(" ".join(list_of_words_in_col).title())
+    return list_of_variables_in_dataset
+
+#primary key is unique for every subset
+def list_of_subset(pk):
+    list_of_subsets_possible = list()
+    list_of_subsets_possible = [str(x) for x in dataset_in_csv[pk] if x not in list_of_subsets_possible ]    
+    return list_of_subsets_possible
+
+def plot_date_tick(parentClass, pk, subset_of_data, parameter_on_y):
+    #dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
     
     primary_key = dataset_in_csv[pk]
     list_of_latest_entries = list()
@@ -84,15 +93,9 @@ def plot_date_tick(parentClass, pk, subset_of_data, parameter_on_y):
 
     canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
 
-def plot_heatmap(parentClass):
+def plot_heatmap(parentClass,pk,list_on_y, no_of_columns_on_x):
     # dataset_in_csv = pd.read_csv(r'owid-co2-data.csv')
-    list_of_variables_in_dataset = list()
-    for col in dataset_in_csv.columns:
-        col_as_str = str(col)
-        list_of_words_in_col = col_as_str.split('_')
-        list_of_variables_in_dataset.append(" ".join(list_of_words_in_col).title())
-    
-    primary_key = dataset_in_csv.iso_code
+    primary_key = dataset_in_csv[pk]
     list_of_latest_entries = list()
     #To store the first index of a new tuple in the dataset
     first_entry = dict()
@@ -100,42 +103,42 @@ def plot_heatmap(parentClass):
     last_entry = dict()
     # list_of_countries=list()
     # count=0
-    first_entry[str(dataset_in_csv.country[0])]=0
+    first_entry[str(dataset_in_csv[pk][0])]=0
     list_of_latest_entries.append(0)
     for i in range(len(primary_key)-1):
         if (primary_key[i+1] != primary_key[i]):
             # count+=1
-            first_entry[str(dataset_in_csv.country[i+1])]=i+1
-            last_entry[str(dataset_in_csv.country[i])]=i
+            first_entry[str(dataset_in_csv[pk][i+1])]=i+1
+            last_entry[str(dataset_in_csv[pk][i])]=i
             #print(str(i)+'\t'+str(count)+'\t'+dataset_in_csv[pk][i])
             # list_of_latest_entries.append(i)
             # list_of_countries.append(str(dataset_in_csv[pk][i]))
-    last_entry[str(dataset_in_csv.country[len(primary_key)-1])]=int(len(primary_key)-1)
-    y_keys = ['Russia','India','Spain','France','Japan','Kuwait','United Arab Emirates','Sweden','Turkey','United States','United Kingdom']
+    last_entry[str(dataset_in_csv[pk][len(primary_key)-1])]=int(len(primary_key)-1)
+    # list_on_y = ['Russia','India','Spain','France','Japan','Kuwait','United Arab Emirates','Sweden','Turkey','United States','United Kingdom']
     values_list = list()
     x_key='year'
-    n=10
-    for key in y_keys:
-        values_list.append([float(i) for i in dataset_in_csv['co2_growth_prct'][last_entry[key]-n+1:last_entry[key]+1]])
+    #n=10
+    for key in list_on_y:
+        values_list.append([float(i) for i in dataset_in_csv['co2_growth_prct'][last_entry[key]-no_of_columns_on_x+1:last_entry[key]+1]])
 
     values = np.array(values_list)
-    x_values=[x for x in dataset_in_csv[x_key][last_entry[key]-n+1:last_entry[key]+1]]
+    x_values=[x for x in dataset_in_csv[x_key][last_entry[key]-no_of_columns_on_x+1:last_entry[key]+1]]
 
     fig,ax = plt.subplots()
     # plt.figure(figsize=(110,200))
     im1=ax.imshow(values)
     ax.set_xticks(np.arange(len(x_values)))
-    ax.set_yticks(np.arange(len(y_keys)))
+    ax.set_yticks(np.arange(len(list_on_y)))
     # ... and label them with the respective list entries
     ax.set_xticklabels(x_values)
-    ax.set_yticklabels(y_keys)
+    ax.set_yticklabels(list_on_y)
 
     # Rotate the tick labels and set their alignment.
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
             rotation_mode="anchor")
 
     # Loop over data dimensions and create text annotations.
-    for i in range(len(y_keys)):
+    for i in range(len(list_on_y)):
         for j in range(len(x_values)):
             # print(i)
             # print(j)

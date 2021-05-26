@@ -151,7 +151,7 @@ class Heatmap_Page(Frame):
         open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
         open_file_button.place(relx = 0.6, rely = 0.1)
 
-        plot_button = ttk.Button(self, command = lambda : plot_heatmap(self), text="Plot Graph")
+        plot_button = ttk.Button(self, command = lambda : plot_heatmap(self,'country',['Russia','India','Spain','France','Japan','Kuwait','United Arab Emirates','Sweden','Turkey','United States','United Kingdom'],10), text="Plot Graph")
         plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
 
         # country_selection_label=Label(self,text="Please select a country to draw a graph")
