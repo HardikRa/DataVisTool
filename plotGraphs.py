@@ -78,7 +78,7 @@ def plot_date_tick(parentClass):
     canvas._tkcanvas.place(relx = 0.5, rely = 0.5, anchor = CENTER)
 
 def plot_heatmap(parentClass):
-    dataset_in_csv = pd.read_csv(r'owid-covid-data.csv')
+    dataset_in_csv = pd.read_csv(r'owid-co2-data.csv')
     list_of_variables_in_dataset = list()
     for col in dataset_in_csv.columns:
         col_as_str = str(col)
@@ -93,17 +93,58 @@ def plot_heatmap(parentClass):
     last_entry = dict()
     # list_of_countries=list()
     # count=0
-    first_entry[str(dataset_in_csv.location[0])]=0
+    first_entry[str(dataset_in_csv.country[0])]=0
     list_of_latest_entries.append(0)
     for i in range(len(primary_key)-1):
         if (primary_key[i+1] != primary_key[i]):
             # count+=1
-            first_entry[str(dataset_in_csv.location[i+1])]=i+1
-            last_entry[str(dataset_in_csv.location[i])]=i
+            first_entry[str(dataset_in_csv.country[i+1])]=i+1
+            last_entry[str(dataset_in_csv.country[i])]=i
             #print(str(i)+'\t'+str(count)+'\t'+dataset_in_csv.location[i])
             # list_of_latest_entries.append(i)
             # list_of_countries.append(str(dataset_in_csv.location[i]))
-    last_entry[str(dataset_in_csv.location[len(primary_key)-1])]=int(len(primary_key)-1)
+    last_entry[str(dataset_in_csv.country[len(primary_key)-1])]=int(len(primary_key)-1)
     y_keys = ['Russia','India','Spain','France','Japan','Kuwait','United Arab Emirates','Sweden','Turkey','United States','United Kingdom']
+    values_list = list()
+    x_key='year'
+    n=10
     for key in y_keys:
-        values
+        values_list.append([float(i) for i in dataset_in_csv['co2_growth_prct'][last_entry[key]-n+1:last_entry[key]+1]])
+
+    values = np.array(values_list)
+    x_values=[x for x in dataset_in_csv[x_key][last_entry[key]-n+1:last_entry[key]+1]]
+
+    fig,ax = plt.subplots()
+    # plt.figure(figsize=(110,200))
+    im1=ax.imshow(values)
+    ax.set_xticks(np.arange(len(x_values)))
+    ax.set_yticks(np.arange(len(y_keys)))
+    # ... and label them with the respective list entries
+    ax.set_xticklabels(x_values)
+    ax.set_yticklabels(y_keys)
+
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+            rotation_mode="anchor")
+
+    # Loop over data dimensions and create text annotations.
+    for i in range(len(y_keys)):
+        for j in range(len(x_values)):
+            # print(i)
+            # print(j)
+            # print()
+            text = ax.text(j, i, values[i, j],
+                        ha="center", va="center", color="w",fontsize=6)
+
+    ax.set_title("% in CO2 rise Year on Year for various countries")
+    #fig.tight_layout()
+    #plt.show()
+    canvas = FigureCanvasTkAgg(fig, parentClass)
+    canvas.draw()
+
+    canvas.get_tk_widget().place(relx= 0.5, rely = 0.65, anchor= CENTER)
+
+    #toolbar = NavigationToolbar2Tk(canvas, parentClass)
+    #toolbar.update()
+
+    canvas._tkcanvas.place(relx = 0.5, rely = 0.5, anchor = CENTER)
