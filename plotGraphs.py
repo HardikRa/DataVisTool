@@ -155,16 +155,33 @@ def plot_heatmap(parentClass,pk,list_on_y, no_of_columns_on_x,value_param):
 
     canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
 
-# def plot_stack_plot(parentClass):
+def plot_stack_plot(parentClass):
+
+    month = ['2-20', '3-20', '4-20', '5-20', '6-20', '7-20', '8-20', '9-20','10-20','11-20','12-20','1-21','2-21','3-21','4-21']
+    cases_by_continent = {
+    'africa': [3, 5781, 38753, 146559, 404901, 928080, 1252235, 1481935, 1785474, 2174323, 2760459, 3569617, 3897307, 4217313, 4557699],
+    'north america': [49, 205321, 1173106, 2007385, 3099966, 5387164, 7171766, 8675128, 10984190, 15939196, 23070638, 30076984, 32926793, 35136720, 37529488],
+    'south america': [4, 14492, 180235, 901684, 2228423, 4101837, 6301683, 8064429, 9664785, 11130276, 13194159, 15877836, 17968065, 21149540, 24878216],
+    'asia': [83720, 179033, 520964, 1138778, 2305204, 4296518, 7113877, 10668654, 13714627, 16791288, 20695037, 23113281, 25022183, 28507133, 39526308],
+    'europe': [1506, 465241, 1357800, 1959812, 2409237, 2871506, 3640749, 5091357, 9962277, 17344228, 23807147, 30356871, 34431959, 39848358, 44863478],
+    }
+
+    fig, ax = plt.subplots()
+    ax.stackplot(month, cases_by_continent.values(),
+             labels=cases_by_continent.keys())
+    ax.legend(loc='upper left')
+    ax.set_title('Number of cases (distributed by continent)')
+    ax.set_xlabel('Month')
+    ax.set_ylabel('Number of people infected')
 
 
-#     canvas = FigureCanvasTkAgg(fig, parentClass)
-#     canvas.draw()
+    canvas = FigureCanvasTkAgg(fig, parentClass)
+    canvas.draw()
 
-#     canvas.get_tk_widget().place(relx= 0.5, rely = 0.65, anchor= CENTER)
+    canvas.get_tk_widget().place(relx= 0.5, rely = 0.65, anchor= CENTER)
 
-#     #Toolbar can be enabled, it was removed because it looks ugly
-#     #toolbar = NavigationToolbar2Tk(canvas, parentClass)
-#     #toolbar.update()
+    #Toolbar can be enabled, it was removed because it looks ugly
+    #toolbar = NavigationToolbar2Tk(canvas, parentClass)
+    #toolbar.update()
 
-#     canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
+    canvas._tkcanvas.place(relx = 0.5, rely = 0.65, anchor = CENTER)
