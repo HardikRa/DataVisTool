@@ -1,4 +1,20 @@
 # DataVisTool
+
+##  Introduction
+
+This is a python-based project which is useful in visualization of data that is very often taken as a serious headache by most people. Data is hard for a normal human to comprehend because it looks like a set of useless numbers often in the thousands or the millions, leaving most people scratching their heads about what to do with these. However, these numbers are not useless at all! In fact they are crucial to learning about any experiment or pattern. If we go to the very foundation of science, it involves catching the recurring patterns in nature, we have however come a long way from the beginning and require more apt conclusions from these patterns of numbers for them to be of any value to us.
+
+## How to use:
+
+
+## Architecture:
+
+What module is processing what data and giving what output
+
+## Screenshots:
+
+
+## Resources I used to build the app:
 https://www.geeksforgeeks.org/python-askopenfile-function-in-tkinter/
 
 https://www.geeksforgeeks.org/tkinter-application-to-switch-between-different-page-frames/
