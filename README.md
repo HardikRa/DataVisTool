@@ -6,6 +6,29 @@ This is a python-based project which is useful in visualization of data that is 
 
 ## How to use:
 
+Git should be preinstalled before using this tool.
+
+Open a terminal window (or you can use one from inside VS Code), you can navigate to the file where you wish to save the files for this project and then run the command:
+
+git clone https://github.com/HardikRa/DataVisTool.git -b master
+
+After this, it is recommended you set up a virtual environment to run/work on the tool, Python has a tool inbuilt to do so and the process can be found easily on Google
+
+Run the following command to install the required libraries:
+
+pip install pandas numpy matplotlib tk
+
+or if you have an old version of Python 2 installed on your device, run the command below:
+
+pip3 install pandas numpy matplotlib tk
+
+Make sure the virtual environment with the libraries installed is active, then navigate to the folder with the cloned repository and run the command:
+
+python App.py
+
+OR
+
+python3 App.py
 
 ## Architecture:
 
