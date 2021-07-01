@@ -268,6 +268,17 @@ class StackPlot_Page(Frame):
         open_file_button = ttk.Button(self, text = "Open a file", command = lambda : open_csv_file() )
         open_file_button.place(relx = 0.6, rely = 0.1, anchor=CENTER)
 
+        africa_checkbox= ttk.Checkbutton(self,text="Africa")
+        africa_checkbox.place(relx=0.3, rely=0.25,anchor=CENTER)
+        north_america_checkbox = ttk.Checkbutton(self,text="North America")
+        north_america_checkbox.place(relx=0.4, rely=0.25,anchor=CENTER)
+        south_america_checkbox = ttk.Checkbutton(self,text="South America")
+        south_america_checkbox.place(relx=0.5, rely=0.25,anchor=CENTER)
+        asia_checkbox = ttk.Checkbutton(self, text="Asia")
+        asia_checkbox.place(relx=0.6, rely=0.25,anchor=CENTER)
+        europe_checkbox = ttk.Checkbutton(self, text="Europe")
+        europe_checkbox.place(relx=0.7, rely=0.25,anchor=CENTER)
+
         plot_button = ttk.Button(self, command = lambda : plot_stack_plot(self), text="Plot Graph")
         plot_button.place(relx=0.5, rely= 0.35, anchor=CENTER)
 
