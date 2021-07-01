@@ -32,7 +32,7 @@ python3 App.py
 
 ### Entry Page
 
-!(<1.png>)
+![Entry page](1.png)
 
 ## Architecture:
 
